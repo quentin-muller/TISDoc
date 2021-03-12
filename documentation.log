@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.15)  12 MAR 2021 11:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.15)  12 MAR 2021 11:50
 entering extended mode
 **./documentation.tex
 (documentation.tex
@@ -211,7 +211,7 @@ LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 [2] (documentation.aux) ) 
 Here is how much of TeX's memory you used:
  3691 strings out of 480790
- 51461 string characters out of 2895425
+ 51503 string characters out of 2895425
  314372 words of memory out of 3000000
  19709 multiletter control sequences out of 15000+200000
  536481 words of font info for 38 fonts, out of 3000000 for 9000
