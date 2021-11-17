@@ -1,68 +1,167 @@
 \section{applyLUT}
 \begin{lstlisting}[style=docstringstyle]
 
-    Applies LUT to an image
+    applyLUT(f,lut)
     
-    Parameters:
-    -----------
-        f   : image
-        lut : lookup table
-    Returns:
-    -----------
-        new image
+    Applique la LookUpTable sur une image f
+    
+    Parameters
+    ----------
+    f    : Image de base en uint8
+    lut  : Look Up Table
+
+    Returns
+    -------
+    g   : Image transformée par la LUT 
     
 \end{lstlisting}
 \section{computeCumulativeHisto}
 \begin{lstlisting}[style=docstringstyle]
 
-    Computes cumulative histogram from base histrogram
+    computeCumulativeHisto(h)
     
-    Arguments:
-        h : histogram
-        
-    Return:
-        cumulative histogram,
-        cumulative normalized histogram
+    Calcul l'histogramme cumulatif non normalisé
+    et normalisé à partir de l'histogramme
+    
+    Parameters
+    ----------
+    h  : Histogramme de l'image
+
+    Returns
+    -------
+    cumulativeHisto           : Histogramme cumulatif 
+    normalizedCumulativeHisto : Histogramme cumulatif normalisé
     
 \end{lstlisting}
-\section{find\_nearest}
-Pas de docstring
+\section{computeHisto}
+\begin{lstlisting}[style=docstringstyle]
+
+    computeHisto(f)
+    
+    Calcul l'histogramme d'un tableau 2D en uint8
+    
+    Parameters
+    ----------
+    f  : tableau 2D à calculer 
+
+    Returns
+    -------
+    h : Histogramme de l'image f
+    
+\end{lstlisting}
+\section{dft}
+\begin{lstlisting}[style=docstringstyle]
+
+    Discrete Fourier transform matrix.
+
+    Create the matrix that computes the discrete Fourier transform of a
+    sequence [1]_.  The n-th primitive root of unity used to generate the
+    matrix is exp(-2*pi*i/n), where i = sqrt(-1).
+
+    Parameters
+    ----------
+    n : int
+        Size the matrix to create.
+    scale : str, optional
+        Must be None, 'sqrtn', or 'n'.
+        If `scale` is 'sqrtn', the matrix is divided by `sqrt(n)`.
+        If `scale` is 'n', the matrix is divided by `n`.
+        If `scale` is None (the default), the matrix is not normalized, and the
+        return value is simply the Vandermonde matrix of the roots of unity.
+
+    Returns
+    -------
+    m : (n, n) ndarray
+        The DFT matrix.
+
+    Notes
+    -----
+    When `scale` is None, multiplying a vector by the matrix returned by
+    `dft` is mathematically equivalent to (but much less efficient than)
+    the calculation performed by `scipy.fftpack.fft`.
+
+    .. versionadded:: 0.14.0
+
+    References
+    ----------
+    .. [1] "DFT matrix", https://en.wikipedia.org/wiki/DFT_matrix
+
+    Examples
+    --------
+    >>> from scipy.linalg import dft
+    >>> np.set_printoptions(precision=5, suppress=True)
+    >>> x = np.array([1, 2, 3, 0, 3, 2, 1, 0])
+    >>> m = dft(8)
+    >>> m.dot(x)   # Compute the DFT of x
+    array([ 12.+0.j,  -2.-2.j,   0.-4.j,  -2.+2.j,   4.+0.j,  -2.-2.j,
+            -0.+4.j,  -2.+2.j])
+
+    Verify that ``m.dot(x)`` is the same as ``fft(x)``.
+
+    >>> from scipy.fftpack import fft
+    >>> fft(x)     # Same result as m.dot(x)
+    array([ 12.+0.j,  -2.-2.j,   0.-4.j,  -2.+2.j,   4.+0.j,  -2.-2.j,
+             0.+4.j,  -2.+2.j])
+    
+\end{lstlisting}
 \section{halfToning}
 \begin{lstlisting}[style=docstringstyle]
 
-    Applies halftoning algorithm to f and returns the results as 2D array
+    halfToning(f)
     
-    Arguments:
-        img : image
-    Return:
-        h : new image
+    Transforme une image en nuance de gris en une image noir et blanc 
+        ayant une moyenne identique à l'image de base
+    
+    Parameters
+    ----------
+    f     : Image de base en uint8
+
+    Returns
+    -------
+    ht   : Image ajustée en tout ou rien
     
 \end{lstlisting}
 \section{imgLevelAdjust}
 \begin{lstlisting}[style=docstringstyle]
 
-    Adjusts image's contrast
-    Arguments:
-        f     : image
-        _mini : lower percentage limit (default 1)
-        _maxi : higher percentage limit (default 99)
-        
-    Return:
-        adjusted image
+    imgLevelAdjust(f, _mini=1, _maxi=99, debug=False)
     
-\end{lstlisting}
-\section{showHistogram}
-\begin{lstlisting}[style=docstringstyle]
-Displays histograms and its cumulative
-    n <------
-    Arguments
-    h : histogramme
+    Ajuster l'histogramme de l'image pour utiliser toute la plage de l'uint8
     
-    Return
-    fig : figure
-    axs : axis
-    
+    Parameters
+    ----------
+    f     : Image de base en uint8
+    _mini : Limite minimum en %
+    _maxi : Limite maximum en %
+    debug : Affichage des print pour debug
+
+    Returns
+    -------
+    h   : Image ajustée pour valeur min et max
     
 \end{lstlisting}
 \section{showImage}
-Pas de docstring
+\begin{lstlisting}[style=docstringstyle]
+
+    showImage(Image, width=10, color='Greys_r', showGrid=True, gridTicks=1, 
+        labelTicks=0, title= "Image", HLines=None, VLines=None)
+    
+    Afficher une image 2D sur un plot avec les paramètres suivants
+    
+    Parameters
+    ----------
+    Image      : tableau 2D à afficher  
+    width      : Largeur du plot
+    color      : Couleur du plot   
+    showGrid   : Afficher ou non la grille  
+    gridTicks  : Définir manuellement le pas de la grille
+    labelTicks : Définir manuellement le pas du label
+    title      : Titre de l'image  
+    Hlines     : Ajoute une line horizontale à la hauteur H
+    Vlines     : Ajoute une line verticale à la hauteur V
+      
+    Returns
+    -------
+    out :  None
+    
+\end{lstlisting}
